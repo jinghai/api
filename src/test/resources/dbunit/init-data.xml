@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<users id="1" email="admin@gmail.com" login_name="admin" password="691b14d79bf0fa2215f155235df5e670b64394cc"
+		salt="7efbd59d9741d34f" user_state="0" create_at="2014-01-01 00:00:00" update_at="2014-01-01 00:00:00" login_num="1"
+		roles="ADMIN" />
+	<users id="2" email="user@gmail.com" login_name="user" password="2488aa0c31c624687bd9928e0a5d29e7d1ed520b" salt="6d65d24122c30500"
+		user_state="0" create_at="2014-01-01 00:00:00" update_at="2014-01-01 00:00:00" login_num="1" roles="ENDUSER" />
+
+	<app id="1" app_key="ipet" version_code="3" version_name="0.3" create_at="2014-03-28 11:22:41"
+		app_download_url="http://jinghai.imblog.in:8080/server/files/update/android/IPet-release.apk" />
+
+</dataset>
