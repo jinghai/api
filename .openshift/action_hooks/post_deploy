@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+#
+#
+
+mkdir -p ${OPENSHIFT_DATA_DIR}files
+
+ln -sf ${OPENSHIFT_DATA_DIR}files ${OPENSHIFT_JBOSSEWS_DIR}/webapps/ROOT
+
+echo "post_deploy OK"
+

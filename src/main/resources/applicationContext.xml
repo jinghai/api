@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:/jdbc.properties" />
+
+	<import resource="classpath:/applicationContext-datasource.xml" />
+	<import resource="classpath:/applicationContext-flyway.xml" />
+	<import resource="classpath:/applicationContext-persistent.xml" />
+
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Resource的属性被注入 -->
+	<context:component-scan base-package="com.ipet.server">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+	<!-- AOP <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" /> -->
+
+	<!-- JSR303 Validator定义 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+</beans>

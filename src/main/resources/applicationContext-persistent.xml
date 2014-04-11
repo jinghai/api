@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/data/jpa
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<!-- Jpa Entity Manager 配置 -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		depends-on="flyway">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
+		<property name="packagesToScan" value="com.ipet.server" />
+		<property name="jpaProperties">
+			<props>
+				<!-- 命名规则 My_NAME->MyName -->
+				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="databasePlatform">
+			<bean factory-method="getDialect" class="com.ipet.server.util.Hibernates">
+				<constructor-arg ref="dataSource" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Spring Data Jpa配置 -->
+	<jpa:repositories base-package="com.ipet.server.repository" entity-manager-factory-ref="entityManagerFactory"
+		transaction-manager-ref="transactionManager" />
+
+	<!-- Jpa 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+</beans>
