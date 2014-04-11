@@ -1,4 +1,3 @@
-api
-===
+The OpenShift `jbossews` cartridge documentation can be found at:
 
-api
+http://openshift.github.io/documentation/oo_cartridge_guide.html#tomcat
